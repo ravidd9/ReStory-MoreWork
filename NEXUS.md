@@ -1,7 +1,9 @@
 # Nexus Mods page: ReStory More Work
 
-Everything to paste into the Nexus upload form, field by field. Game page:
-https://www.nexusmods.com/games/restorychillelectronicrepairs
+Everything to paste into the Nexus upload form, field by field.
+
+- Published page: https://www.nexusmods.com/restorychillelectronicrepairs/mods/73
+- Game page: https://www.nexusmods.com/games/restorychillelectronicrepairs
 
 ## Basics
 

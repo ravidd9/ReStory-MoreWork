@@ -6,6 +6,8 @@ orders and listings look, pay, expire, rate and save exactly like the game's own
 
 Works with the in-game clock paused (for example with the TimeIsMoney mod).
 
+**Download:** [ReStory More Work on Nexus Mods](https://www.nexusmods.com/restorychillelectronicrepairs/mods/73)
+
 ## Features
 
 **Outlink Express orders**
@@ -47,7 +49,8 @@ Works with the in-game clock paused (for example with the TimeIsMoney mod).
 ## Installation
 
 1. Install BepInEx 5 into the game folder (the one containing `Restory.exe`) and run the game once.
-2. Put `ReStoryMoreWork.dll` in `BepInEx\plugins\ReStoryMoreWork\`.
+2. Download the zip from [Nexus Mods](https://www.nexusmods.com/restorychillelectronicrepairs/mods/73) and
+   extract it into the game folder, so the DLL ends up at `BepInEx\plugins\ReStoryMoreWork\ReStoryMoreWork.dll`.
 3. Start the game. `BepInEx\LogOutput.log` should contain:
 
    ```
