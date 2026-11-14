@@ -123,6 +123,17 @@ the next morning brings no new game listings until you buy some.
 - **Game updates:** at startup the mod checks every game function it uses. If the game changed, the log says
   `SELF-CHECK FAILED` and the mod turns itself off instead of misbehaving.
 
+## Credits
+
+Project layout and a few helpers (per-class Harmony patching, config section separators, logging) are adapted
+from [ReStory Better Workbench](https://www.nexusmods.com/restorychillelectronicrepairs/mods/42) by
+CogworkDancer (Archives), MIT License.
+
+## AI disclosure
+
+The code and this README were written with an AI coding assistant (Claude Code), directed and tested in-game by
+the author.
+
 ## Building
 
 Needs the .NET SDK and the game with BepInEx installed. If your game is not at
