@@ -1,0 +1,13 @@
+bin/
+obj/
+.idea/
+.vs/
+*.user
+dist/
+
+# Per-machine game path (see README)
+*.local.props
+
+# Never commit game, BepInEx or build DLLs
+*.dll
+*.pdb

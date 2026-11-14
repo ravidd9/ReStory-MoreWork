@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Per-machine game path, kept out of git. Create ReStoryMoreWork.local.props (see README) when your game
+       is not at the default Steam path. -->
+  <Import Project="$(MSBuildProjectName).local.props" Condition="Exists('$(MSBuildProjectName).local.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>ReStoryMoreWork</AssemblyName>
+    <RootNamespace>ReStoryMoreWork</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Version>1.0.0</Version>
+    <!-- Unity ships its own facades; don't drag in NuGet reference assemblies. -->
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <NoWarn>$(NoWarn);CS0436</NoWarn>
+
+    <GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Restory</GameDir>
+    <Managed>$(GameDir)\Restory_Data\Managed</Managed>
+    <BepInExCore>$(GameDir)\BepInEx\core</BepInExCore>
+    <DeployDir>$(GameDir)\BepInEx\plugins\$(AssemblyName)\</DeployDir>
+  </PropertyGroup>
+
+  <!-- Compiled against the BepInEx and Harmony actually installed in the game, so what it is built against is
+       exactly what it runs against. Nothing here is copied into the output or the repo. -->
+  <ItemGroup>
+    <Reference Include="$(BepInExCore)\BepInEx.dll" Private="false" />
+    <Reference Include="$(BepInExCore)\0Harmony.dll" Private="false" />
+
+    <Reference Include="$(Managed)\mscorlib.dll" Private="false" />
+    <Reference Include="$(Managed)\netstandard.dll" Private="false" />
+    <Reference Include="$(Managed)\System.dll" Private="false" />
+    <Reference Include="$(Managed)\System.Core.dll" Private="false" />
+    <Reference Include="$(Managed)\UnityEngine*.dll" Private="false" />
+    <Reference Include="$(Managed)\Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="$(Managed)\Restory.Assembly.dll" Private="false" />
+    <Reference Include="$(Managed)\Mandragora.Helpers.Assembly.dll" Private="false" />
+    <!-- Game services implement Zenject interfaces and Odin/FullSerializer types sit under the game's data. -->
+    <Reference Include="$(Managed)\Zenject.dll" Private="false" />
+    <Reference Include="$(Managed)\Sirenix.Serialization.dll" Private="false" />
+    <Reference Include="$(Managed)\FullSerializer.Assembly.dll" Private="false" />
+  </ItemGroup>
+
+  <!-- Fail early with a clear message instead of a wall of missing-type errors. -->
+  <Target Name="CheckGameDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(Managed)\Restory.Assembly.dll')"
+           Text="ReStory not found at '$(GameDir)'. Set GameDir in $(MSBuildProjectName).local.props (see README)." />
+    <Error Condition="!Exists('$(BepInExCore)\BepInEx.dll')"
+           Text="BepInEx not found at '$(BepInExCore)'. Install BepInEx 5 into the game folder first." />
+  </Target>
+
+  <!-- Copies only the mod's own DLL into BepInEx\plugins\ReStoryMoreWork\. -->
+  <Target Name="Deploy" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
+    <Message Importance="high" Text="Deployed $(AssemblyName).dll -> $(DeployDir) [$(Configuration)]" />
+  </Target>
+
+</Project>
